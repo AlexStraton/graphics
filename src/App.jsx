@@ -1,6 +1,6 @@
 
 import './App.css'
-import ConstituenciesPage from './pages/ConstituenciesPage'
+import React from "react";
 
 
 
@@ -9,7 +9,8 @@ function App() {
 
   return (
    <>
-    <ConstituenciesPage />
+
+
    </>
   )
 }
