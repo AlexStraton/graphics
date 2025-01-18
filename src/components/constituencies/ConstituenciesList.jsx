@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ConstituenciesList({constituencies}) {
   const navigate = useNavigate();
-  
+
     return(
         <section className="p-7">
         {constituencies.length > 0 ? (
