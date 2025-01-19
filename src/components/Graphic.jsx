@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   BarElement,
@@ -12,9 +12,9 @@ import {
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const BarChart = ({ labels, data, title, backgroundColor, borderColor }) => {
-
+const Graphic = ({ type, labels, data, title, backgroundColor, borderColor, xAxisLabel, yAxisLabel }) => {
   const chartData = {
+    type,
     labels,
     datasets: [
       {
@@ -34,19 +34,39 @@ const BarChart = ({ labels, data, title, backgroundColor, borderColor }) => {
       legend: {
         display: true,
         position: "top",
+        labels: {
+          display: true,
+          font: {
+            size: 20,
+            weight: "bold",
+          },
       },
-    },
+      },
+  },
     scales: {
       x: {
+        ticks: {
+          callback: function (value) {
+            return this.getLabelForValue(value).split('\n');
+          },
+        },
         title: {
           display: true,
-          text: "Political Parties",
+          text: xAxisLabel || "x Axis",
+          font: {
+            weight: "bold",
+            size: 18
+          },
         },
       },
       y: {
         title: {
           display: true,
-          text: "Nunmber of Votes",
+          text: yAxisLabel || "y Axis",
+          font: {
+            weight: "bold",
+            size: 18
+          },
         },
       },
     },
@@ -58,4 +78,4 @@ const BarChart = ({ labels, data, title, backgroundColor, borderColor }) => {
 </div >
 )
 }
-export default BarChart;
+export default Graphic;
