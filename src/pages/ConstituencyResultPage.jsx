@@ -1,32 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import BarGraph from '../components/BarGraph';
 import LineGraph from '../components/LineGraph';
 
-const API_KEY = '87c47b251a9f5c499a515bcc5300d0815f11b82100e17282';
-const BASE_URL = 'https://jse-assignment.uk';
-
-const ConstituencyResultPage = () => {
+const ConstituencyResultPage = ({results, fetchResults, loading}) => {
   const { gssId } = useParams();
-  const [results, setResults] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  const ConstituencyResults = async () => {
-      try {
-          const res = await fetch(`${BASE_URL}/UKGeneral/results/${gssId}`, {
-              headers: { 'x-api-key': API_KEY },
-            });
-            const jsonData = await res.json();
-            setResults(jsonData);
-            console.log(results)
-            setLoading(false);
-        } catch (error) {
-            console.error('Error fetching constituency result:', error);
-            setLoading(false);
-        }
-    };
+
   useEffect(() => {
-    ConstituencyResults();
+    if (gssId) {
+      fetchResults(gssId);
+    }
   }, [gssId]);
 
   if (loading) {
@@ -34,7 +18,7 @@ const ConstituencyResultPage = () => {
   }
 
   if (!results) {
-    return <p className="text-center text-red-600">Error fetching data.</p>;
+    return <h2 className="text-center text-red-600">Error fetching data.</h2>;
   }
 
   const partyName = results.results.map((result) => {
@@ -95,8 +79,8 @@ const winner = results.results.map((result) => {
           <ul className="grid gap-4 p-8 m-6 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
             {results.results.map((result, index) => (
 
-              <li key={index} className={`bg-white shadow-md rounded-lg p-6 border border-gray-200 ${
-                result.votes === highest ? "bg-green-200" : ""
+              <li key={index} className={` p-6 ${
+                result.votes === highest ? "bg-green-200" : "bg-white shadow-md rounded-lg p-6 border border-gray-200"
               }`}>
                 <h3 className="text-xl font-semibold text-gray-800">
                   {result.candidateName ?? 'Unknown candidate'} ({result.partyName})

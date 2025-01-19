@@ -1,10 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Map from "../components/Map";
+import ScatterChart from "../components/Scatter";
 
-const HomePage = () => {
+const HomePage = ({results}) => {
   const navigate = useNavigate();
-
-
+console.log(results)
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-4xl font-bold mb-8">Welcome to the Election Dashboard</h1>
@@ -14,6 +15,16 @@ const HomePage = () => {
       >
         View List of Constituencies
       </button>
+      <br />
+      {/* <ScatterChart
+      data={results}
+      title="Turnout by County"
+      backgroundColor="rgba(75, 192, 192, 0.2)"
+      borderColor="rgba(75, 192, 192, 1)"
+      xAxisLabel="County"
+      yAxisLabel="Turnout (%)"
+      /> */}
+      <Map results={results}/>
     </div>
   );
 };

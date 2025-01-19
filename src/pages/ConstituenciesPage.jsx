@@ -36,7 +36,7 @@ function ConstituenciesPage() {
           setCurrentPage(page);
         }
       };
-
+console.log("ALl CONSTITUN+ENCIES", allConstituencies)
   return (
     <>
 
