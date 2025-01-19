@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar, Line, Doughnut } from "react-chartjs-2";
+import { Bar} from "react-chartjs-2";
 import {
   Chart as ChartJS,
   BarElement,
@@ -12,15 +12,15 @@ import {
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const Graphic = ({ type, labels, data, title, backgroundColor, borderColor, xAxisLabel, yAxisLabel }) => {
+const BarGraph = ({ type, labels, data, title, backgroundColor, borderColor, xAxisLabel, yAxisLabel }) => {
   const chartData = {
-    type,
+    type: "bar",
     labels,
     datasets: [
       {
         label: title || "Data",
         data,
-        backgroundColor: backgroundColor || "rgba(54, 162, 235, 0.5)",
+        backgroundColor: backgroundColor || "rgba(160, 54, 235, 0.5)",
         borderColor: borderColor || "rgba(54, 162, 235, 1)",
         borderWidth: 1,
       },
@@ -30,6 +30,7 @@ const Graphic = ({ type, labels, data, title, backgroundColor, borderColor, xAxi
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    
     plugins: {
       legend: {
         display: true,
@@ -78,4 +79,4 @@ const Graphic = ({ type, labels, data, title, backgroundColor, borderColor, xAxi
 </div >
 )
 }
-export default Graphic;
+export default BarGraph;

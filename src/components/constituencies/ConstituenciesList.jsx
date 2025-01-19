@@ -18,9 +18,9 @@ export default function ConstituenciesList({constituencies}) {
                     {constituency.name}
                   </h2>
                   <p className="text-gray-600">County: {constituency.county}</p>
-                  
+
                   <button
-              onClick={() => navigate(`/constituency/${constituency.gssId}`)}
+              onClick={() => navigate(`/UKGeneral/results/${constituency.gssId}`)}
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Click here to see results

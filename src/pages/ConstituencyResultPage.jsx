@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Graphic from '../components/Graphic';
+import BarGraph from '../components/BarGraph';
+import LineGraph from '../components/LineGraph';
 
 const API_KEY = '87c47b251a9f5c499a515bcc5300d0815f11b82100e17282';
 const BASE_URL = 'https://jse-assignment.uk';
@@ -24,7 +25,6 @@ const ConstituencyResultPage = () => {
             setLoading(false);
         }
     };
-
   useEffect(() => {
     ConstituencyResults();
   }, [gssId]);
@@ -81,36 +81,37 @@ const winner = results.results.map((result) => {
     ? `The winner is ${winningCandidate} (${winningPartyName}) with ${highest.toLocaleString()} votes.`
     : "No results available."}
 </h2>
-     <ul className="grid grid-cols-6 gap-4 p-8 m-6 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
+
+          <BarGraph
+            labels={candidateName}
+            data={chartData}
+            title="Votes"
+            backgroundColor="rgba(75, 192, 192, 0.5)"
+            borderColor="rgb(31, 181, 181)"
+            xAxisLabel="Candidates"
+            yAxisLabel="Number of Votes"
+          />
+          <br></br>
+          <ul className="grid gap-4 p-8 m-6 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
             {results.results.map((result, index) => (
 
               <li key={index} className={`bg-white shadow-md rounded-lg p-6 border border-gray-200 ${
                 result.votes === highest ? "bg-green-200" : ""
               }`}>
                 <h3 className="text-xl font-semibold text-gray-800">
-                  {result.candidateName} ({result.partyName})
+                  {result.candidateName ?? 'Unknown candidate'} ({result.partyName})
                 </h3>
-                <p className="text-gray-600">Votes: {result.votes.toLocaleString()}</p>
-                <p className="text-gray-600">Share: {result.share.toFixed(2)}%</p>
+                <p className="text-gray-600 bg-teal-300 p-3 rounded-md my-2">Votes: {result.votes.toLocaleString()}</p>
+                <p className="text-gray-600 bg-purple-300 p-3 rounded-md my-2">Percentage Share: {result.share.toFixed(2)}%</p>
               </li>
             ))}
           </ul>
-          <Graphic
-            labels={candidateName}
-            data={chartData}
-            title="Votes"
-            backgroundColor="rgba(75, 192, 192, 0.5)"
-            borderColor="rgba(75, 192, 192, 1)"
-            xAxisLabel="Candidates"
-            yAxisLabel="Number of Votes"
-          />
-          <br></br>
-          <Graphic
+          <LineGraph
             labels={partyName}
             data={percentageShare}
             title="Percentage Share"
-            backgroundColor="rgba(82, 14, 95, 0.5)"
-            borderColor="rgba(75, 192, 192, 1)"
+            backgroundColor="rgba(225, 118, 246, 0.5)"
+            borderColor="rgb(161, 55, 243)"
             xAxisLabel="Political Parties"
             yAxisLabel="Percentage Share (%)"
           />
