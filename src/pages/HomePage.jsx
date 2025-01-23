@@ -1,11 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Map from "../components/Map";
-import ScatterChart from "../components/Scatter";
+//import ScatterChart from "../components/Scatter";
 
-const HomePage = ({results}) => {
+const HomePage = ({results, allConstituencies}) => {
   const navigate = useNavigate();
-console.log(results)
+
+// console.log("results", results, "all constituencies", allConstituencies)
+// let countyGssIdsObj = {}
+// const countyList = allConstituencies.forEach((constituency) => {
+//    data[constituency.coun] = constituency.gssId
+// })
+// const countyTurnout = results.reduce((acc, result) => {
+//   acc[result.county] = (acc[result.county] || 0) + result.turnout;
+//   return acc;
+// }, {});
+
+// console.log(countyTurnout);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-4xl font-bold mb-8">Welcome to the Election Dashboard</h1>

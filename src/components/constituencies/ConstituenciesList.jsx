@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 export default function ConstituenciesList({constituencies}) {
-  console.log(constituencies)
   const navigate = useNavigate();
 
     return(

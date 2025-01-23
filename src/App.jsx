@@ -12,29 +12,43 @@ const BASE_URL = 'https://jse-assignment.uk';
 
 function App() {
   const [results, setResults] = useState(null);
-   const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [allConstituencies, setAllConstituencies] = useState([])
 
-  const ConstituencyResults = async (gssId) => {
+const ConstituencyResults = async (gssId) => {
     try {
         const res = await fetch(`${BASE_URL}/UKGeneral/results/${gssId}`, {
             headers: { 'x-api-key': API_KEY },
           });
           const jsonData = await res.json();
           setResults(jsonData);
-
           setLoading(false);
       } catch (error) {
           console.error('Error fetching constituency result:', error);
           setLoading(false);
       }
   };
+  const getAllConstituencies = async () => {
+    try {
+     const res = await fetch( `${BASE_URL}/UKGeneral/constituencies/`, {
+      headers: {
+        'x-api-key': API_KEY
+      }
+    })
+    const jsonData = await res.json();
+    setAllConstituencies(jsonData)
+    } catch(error) {
+        console.error()
+    }
+ }
 
+  
   return (
    <>
     <Routes>
       <Route path="/" element={<Navigate to="/UKGeneral" replace />} />
-      <Route path="/UKGeneral" element={<HomePage results={results}/>} />
-      <Route path="/UKGeneral/constituencies" element={<ConstituenciesPage />} />
+      <Route path="/UKGeneral" element={<HomePage results={results} allConstituencies={allConstituencies}/>} />
+      <Route path="/UKGeneral/constituencies" element={<ConstituenciesPage fetchConstituencies={getAllConstituencies} allConstituencies={allConstituencies}/>} />
       <Route
       path="/UKGeneral/results/:gssId"
       element={<ConstituencyResultPage loading={loading} results={results} fetchResults={ConstituencyResults} />}
